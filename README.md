@@ -156,41 +156,44 @@ import apps.app_name.whatever.
 Quick Start -- Updated 2013-08-18
 ===========
 
-install pip, setuptools, git, and virtualenv on your system
+Install pip, setuptools, git, and virtualenv on your system
     sudo apt-get install pip, setuptools, git
 
-on windows
-http://www.pip-installer.org/en/latest/installing.html
-downloaded latest ez_setup.py from setuptools pypi page
+On windows - http://www.pip-installer.org/en/latest/installing.html
+Downloaded latest ez_setup.py from setuptools pypi page
+
     python ez_setup.py
     downloaded https://raw.github.com/pypa/pip/master/contrib/get-pip.py
     python get-pip.py
 
     sudo pip install virtualenv
 
-create project directory
+Create project directory
     mkdir PROJECT_NAME
 
-create a new virtualenv directory - if you don't understand why you
+Create a new virtualenv directory - if you don't understand why you
 absolutely should use virtualenv for any size project, go read
 the 'longer reading' section
 I call my virtual environments venv - you can do whatever you like
     virtualenv PROJECT_NAME/venv
 
-source the virtualenv and install all the development requirements
-    source PROJECT_NAME/venv/bin/activate
-(windows: PROJECT_NAME/venv/Scripts/activate.bat)
+Source the virtualenv and install all the development requirements
 
-install django 1.5.x -- notice the quotes
+    source PROJECT_NAME/venv/bin/activate
+    (windows: PROJECT_NAME/venv/Scripts/activate.bat)
+
+Install django 1.5.x -- notice the quotes
+
     pip install "django>=1.5,<1.6"
 
-create a new django project using Djeroku as the template
+Create a new django project using Djeroku as the template
+
     python venv/Scripts/django-admin.py startproject --template=path/to/djeroku/git-or-zip-or-folder --extension=py,html PROJECT_NAME
 
     cd PROJECT_NAME
     pip install -r PROJECT_NAME/reqs/dev.txt
 
-the django-skel docs have great advice here if the above command fails:
+The django-skel docs have great advice here if the above command fails:
 you are missing required libraries --
 on ubuntu, installing the following solves it
 - libevent-dev
