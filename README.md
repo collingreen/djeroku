@@ -280,7 +280,6 @@ To get the very best performance possible, however, there are several things
 you can and should do with your static assets to speed up the client experience:
 
 ### 1. Concatenation
-
 Concatenation just means grouping everything you can into single files.
 
 This is trivial for css, works pretty well for javascript, and requires a
