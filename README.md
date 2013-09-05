@@ -279,7 +279,8 @@ deployment section and look at the fabfile for more details.
 To get the very best performance possible, however, there are several things
 you can and should do with your static assets to speed up the client experience:
 
-1. Concatenation
+### 1. Concatenation
+
 Concatenation just means grouping everything you can into single files.
 
 This is trivial for css, works pretty well for javascript, and requires a
@@ -289,7 +290,7 @@ for some browsers (certain versions of IE) that limit the number of files
 being downloaded in parallel. You'll probably need to wrap your javascript
 in (function(){ ... })() calls, but you're doing that anyway, right?
 
-2. Compression
+### 2. Compression
 Human readable CSS and javascript can be compressed in various ways to
 yield much smaller files, directly correlating to faster load times. As a
 bonus, the compression process generally makes your javascript much harder
@@ -297,7 +298,7 @@ to read after the fact, adding a tiny tiny layer of difficulty for people to
 steal your code (at least 2 seconds while they copy everything and open
 jsbeautifier.org).
 
-3. Versioning
+### 3. Versioning
 The first two items reduce the total load time of your assets by
 making changes to allow the browsers to download it all faster. Versioning,
 on the other hand, enables you to safely tell the client's browser to cache
@@ -389,7 +390,7 @@ The following line will push the head commit of your master branch to staging
     git push staging master
 
 Heroku will take this and do all its crazy magic to compile it
-#nto your application 'slug'. After a couple minutes, the command
+into your application 'slug'. After a couple minutes, the command
 will finish and you can go to your-staging-app-name.herokuapp.com
 and see it. You'll probably need to run the following first:
     heroku run python manage.py syncdb
