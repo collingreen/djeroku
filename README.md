@@ -62,7 +62,7 @@ simultaneously patching the abandoned compressor project, Djeroku is the same
 kind of project with a slightly different toolset.
 
 
-What Djeroku Uses - A Likely Incomplete List
+What Djeroku Uses - An Incomplete List
 ==============
 - Virtualenv
 - Pip
@@ -160,7 +160,7 @@ Install pip, setuptools, git, and virtualenv on your system
     sudo apt-get install pip, setuptools, git
 
 On windows - http://www.pip-installer.org/en/latest/installing.html
-Downloaded latest ez_setup.py from setuptools pypi page
+Download latest ez_setup.py from setuptools pypi page
 
     python ez_setup.py
     downloaded https://raw.github.com/pypa/pip/master/contrib/get-pip.py
@@ -173,8 +173,7 @@ Create project directory
 
 Create a new virtualenv directory - if you don't understand why you
 absolutely should use virtualenv for any size project, go read
-the 'longer reading' section
-I call my virtual environments venv - you can do whatever you like
+the 'longer reading' section. I call my virtual environments venv - you can do whatever you like
     virtualenv PROJECT_NAME/venv
 
 Source the virtualenv and install all the development requirements
@@ -207,32 +206,32 @@ on ubuntu, installing the following solves it
 
 ----------------------
 When you are ready to create your first app, use the django-admin command
-again, this time with the djeroku-app template
-if you forget the --extension flag below, the default djeroku_app templates will not be copied
-correctly. Not the end of the world, but might as well get it right.
+again, this time with the djeroku-app template. If you forget the --extension
+flag below, the default djeroku_app templates will not be copied
+correctly. Not the end of the world, but you might as well get it right.
 
     cd PROJECT_NAME/apps
     python ../venv/Scripts/django-admin.py startapp --template=path/to/djeroku-app/git-or-zip-or-folder --extension=py,html APP_NAME
 
-open up settings/common.py and add your new app to the LOCAL_APPS tuple
+Open up settings/common.py and add your new app to the LOCAL_APPS tuple
 
     LOCAL_APPS = (
 	    'apps.APP_NAME',
     )
 
-next, hook up the app urls in the project urls.py by adding this line as the
+Next, hook up the app urls in the project urls.py by adding this line as the
 first item inside the urlpatters call (before the admin urls,
-but it either way should work)
+but either way should work)
 
     url(r'', include('apps.djeroku_site.urls')),
 
-test that it all went according to plan
+Test that it all went according to plan
 
     python manage.py syncdb
     python manage.py migrate
     python manage.py runserver
 
-open 127.0.0.1:8000 in your browser -- you should see the djeroku hello world page.
+Open 127.0.0.1:8000 in your browser -- you should see the djeroku hello world page.
 
 
 One Time Setup
@@ -286,7 +285,7 @@ deployment section and look at the fabfile for more details.
 To get the very best performance possible, however, there are several things
 you can and should do with your static assets to speed up the client experience:
 
-### 1. Concatenation
+#### 1. Concatenation
 Concatenation just means grouping everything you can into single files.
 
 This is trivial for css, works pretty well for javascript, and requires a
@@ -296,7 +295,7 @@ for some browsers (certain versions of IE) that limit the number of files
 being downloaded in parallel. You'll probably need to wrap your javascript
 in (function(){ ... })() calls, but you're doing that anyway, right?
 
-### 2. Compression
+#### 2. Compression
 Human readable CSS and javascript can be compressed in various ways to
 yield much smaller files, directly correlating to faster load times. As a
 bonus, the compression process generally makes your javascript much harder
@@ -304,7 +303,7 @@ to read after the fact, adding a tiny tiny layer of difficulty for people to
 steal your code (at least 2 seconds while they copy everything and open
 jsbeautifier.org).
 
-### 3. Versioning
+#### 3. Versioning
 The first two items reduce the total load time of your assets by
 making changes to allow the browsers to download it all faster. Versioning,
 on the other hand, enables you to safely tell the client's browser to cache
