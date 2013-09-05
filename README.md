@@ -159,12 +159,12 @@ Quick Start -- Updated 2013-08-18
 install pip, setuptools, git, and virtualenv on your system
     sudo apt-get install pip, setuptools, git
 
-## on windows
-## http://www.pip-installer.org/en/latest/installing.html
-## downloaded latest ez_setup.py from setuptools pypi page
-## python ez_setup.py
-## downloaded https://raw.github.com/pypa/pip/master/contrib/get-pip.py
-## python get-pip.py
+on windows
+http://www.pip-installer.org/en/latest/installing.html
+downloaded latest ez_setup.py from setuptools pypi page
+    python ez_setup.py
+    downloaded https://raw.github.com/pypa/pip/master/contrib/get-pip.py
+    python get-pip.py
 
     sudo pip install virtualenv
 
@@ -179,7 +179,7 @@ I call my virtual environments venv - you can do whatever you like
 
 source the virtualenv and install all the development requirements
     source PROJECT_NAME/venv/bin/activate
-## windows: PROJECT_NAME/venv/Scripts/activate.bat
+(windows: PROJECT_NAME/venv/Scripts/activate.bat)
 
 install django 1.5.x -- notice the quotes
     pip install "django>=1.5,<1.6"
@@ -359,7 +359,7 @@ On development (when DEBUG is True), this will just generate the direct
 links you would normally expect:
 
     <link type='text/css' rel='stylesheet' href='css/core.css' media='screen,projection'/>
-    # similar link for every css file in the css/colors directory #
+    (similar link for every css file in the css/colors directory)
     <link type='text/css' rel='stylesheet' href='css/layers.css' media='screen,projection'/>
 
 On production, however, django-pipeline will join all those files up,
