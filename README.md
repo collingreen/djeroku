@@ -203,14 +203,16 @@ on ubuntu, installing the following solves it
 
 
 ----------------------
-when you are ready to create your first app, use the django-admin command
+When you are ready to create your first app, use the django-admin command
 again, this time with the djeroku-app template
 if you forget the --extension flag below, the default djeroku_app templates will not be copied
 correctly. Not the end of the world, but might as well get it right.
+
     cd PROJECT_NAME/apps
     python ../venv/Scripts/django-admin.py startapp --template=path/to/djeroku-app/git-or-zip-or-folder --extension=py,html APP_NAME
 
 open up settings/common.py and add your new app to the LOCAL_APPS tuple
+
     LOCAL_APPS = (
 	    'apps.APP_NAME',
     )
@@ -218,9 +220,11 @@ open up settings/common.py and add your new app to the LOCAL_APPS tuple
 next, hook up the app urls in the project urls.py by adding this line as the
 first item inside the urlpatters call (before the admin urls,
 but it either way should work)
+
     url(r'', include('apps.djeroku_site.urls')),
 
 test that it all went according to plan
+
     python manage.py syncdb
     python manage.py migrate
     python manage.py runserver
@@ -353,6 +357,7 @@ http://django-pipeline.readthedocs.org/en/latest/configuration.html
 Now, in your templates, instead of referencing your css and javascript files
 directly, use the compressed_css and compressed_js tags and reference your
 groups defined above.
+
     {% compressed_css 'colors' %}
 
 On development (when DEBUG is True), this will just generate the direct
@@ -386,24 +391,29 @@ to production, but promoting it along the pipeline
 is cleaner, safer, and faster).
 
 The following line will push the head commit of your master branch to staging
+
     git push staging master
 
 Heroku will take this and do all its crazy magic to compile it
 into your application 'slug'. After a couple minutes, the command
 will finish and you can go to your-staging-app-name.herokuapp.com
 and see it. You'll probably need to run the following first:
+
     heroku run python manage.py syncdb
     heroku run python manage.py migrate
     heroku run python manage.py collectstatic --noinput
 
 Promoting the working slug from staging to production is trivial.
 Get in the habit of first checking the diff between the two
+
     heroku pipeline:diff
 
 If all looks as expected, promote it
+
     heroku pipeline:promote
 
 If something goes terribly wrong, you can always
+
     heroku pipeline:rollback
 
 
@@ -419,10 +429,10 @@ Longer Reading
 Virtualenv
 ----------
 Virtualenv allows you to make a little self contained sandbox for each of
-your projects, allowing each one to have it's own installations of all the
+your projects, allowing each one to have its own installations of all the
 libraries and tools. This sounds like wasted effort and space, but what it
 ACTUALLY does is gives you precise control over what is being used (which
---CAN-- differ between projects! Some tools REQUIRE different versions of
+*CAN* and *WILL* differ between projects! Some tools REQUIRE different versions of
 various 3rd party tools!). More importantly, this enables you as the developer
 to sync up other developer environments with the same versions of everything
 (a DAUNTING task manually, even if you DO remember to check every version
