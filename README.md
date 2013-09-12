@@ -210,7 +210,7 @@ again, this time with the djeroku-app template. If you forget the --extension
 flag below, the default djeroku_app templates will not be copied
 correctly. Not the end of the world, but you might as well get it right.
 
-    cd PROJECT_NAME/apps
+    cd PROJECT_NAME/PROJECT_NAME/apps
     python ../venv/Scripts/django-admin.py startapp --template=path/to/djeroku-app/git-or-zip-or-folder --extension=py,html APP_NAME
 
 Open up settings/common.py and add your new app to the LOCAL_APPS tuple
