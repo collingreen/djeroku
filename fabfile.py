@@ -125,6 +125,12 @@ def heroku_setup():
         cont('heroku config:set %s --app=%s' % (config, app_name),
             "Failed to set %s on Production. Continue anyway?" % config)
 
+    # set debug
+    cont('heroku config:set DEBUG=True --app=%s' % (config, staging_name),
+        "Failed to set DEBUG on Staging. Continue anyway?")
+    cont('heroku config:set DEBUG=False --app=%s' % (config, app_name),
+        "Failed to set DEBUG on Production. Continue anyway?")
+
     # set environment type
     cont('heroku config:set ENVIRONMENT_TYPE=staging --app=%s' % staging_name,
         "Failed to set ENVIRONMENT_TYPE on Staging. Continue anyway?")
@@ -152,7 +158,7 @@ def heroku_setup():
             "Failed to install pipelines plugin. Continue anyway?")
     cont( 'heroku pipeline:add -a %s %s' % (staging_name, app_name),
             "Failed to create pipeline from Staging to Production. Continue anyway?")
-			
+
     # start newrelic
     cont( ('%(run)s newrelic-admin validate-config - stdout --app=' % env) + staging_name,
             "Failed to initialize New Relic on Staging. Continue anyway?")

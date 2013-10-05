@@ -29,7 +29,7 @@ def validate_required_exist(request, required_fields, check_get=False):
             return field
     return True
 
-def validate_required(request, required_fields_dict, all_failures=True,
+def validate_required(request, required_fields, all_failures=True,
                     check_get=False, quiet=False, error_messages=None):
     """
     Much more in depth validation of required fields. Accepts a dictionary
@@ -200,7 +200,7 @@ def validate_required(request, required_fields_dict, all_failures=True,
         return clean
     else:
         return (True, clean)
-		
+
 
 # http://www.lightbird.net/dbe/forum1.html
 def create_paginator(request, items, num_items):
