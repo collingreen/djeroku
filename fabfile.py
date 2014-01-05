@@ -35,7 +35,7 @@ HEROKU_ADDONS = (
     'scheduler:standard',
     'redistogo:nano',
     'memcachier:dev',
-    'newrelic:standard',
+    'newrelic:stark',
     'pgbackups:auto-month',
     'sentry:developer',
     'mandrill:starter',
@@ -126,9 +126,9 @@ def heroku_setup():
             "Failed to set %s on Production. Continue anyway?" % config)
 
     # set debug
-    cont('heroku config:set DEBUG=True --app=%s' % (config, staging_name),
+    cont('heroku config:set DEBUG=True --app=%s' % staging_name,
         "Failed to set DEBUG on Staging. Continue anyway?")
-    cont('heroku config:set DEBUG=False --app=%s' % (config, app_name),
+    cont('heroku config:set DEBUG=False --app=%s' % app_name,
         "Failed to set DEBUG on Production. Continue anyway?")
 
     # set environment type
