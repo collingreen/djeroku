@@ -211,7 +211,7 @@ flag below, the default djeroku_app templates will not be copied
 correctly. Not the end of the world, but you might as well get it right.
 
     cd PROJECT_NAME/PROJECT_NAME/apps
-    python ../venv/Scripts/django-admin.py startapp --template=path/to/djeroku-app/git-or-zip-or-folder --extension=py,html APP_NAME
+    python ../../../venv/Scripts/django-admin.py startapp --template=path/to/djeroku-app/git-or-zip-or-folder --extension=py,html APP_NAME
 
 Open up settings/common.py and add your new app to the LOCAL_APPS tuple
 
@@ -223,7 +223,7 @@ Next, hook up the app urls in the project urls.py by adding this line as the
 first item inside the urlpatters call (before the admin urls,
 but either way should work)
 
-    url(r'', include('apps.djeroku_site.urls')),
+    url(r'', include('apps.APP_NAME.urls')),
 
 Test that it all went according to plan
 
