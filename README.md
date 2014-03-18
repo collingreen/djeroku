@@ -187,7 +187,7 @@ Install django 1.5.x -- notice the quotes
 
 Create a new django project using Djeroku as the template
 
-    python venv/local/bin/django-admin.py startproject --template=path/to/djeroku/git-or-zip-or-folder --extension=py,html PROJECT_NAME
+    python venv/local/bin/django-admin.py startproject --template=https://github.com/djeroku/djeroku/archive/master.zip --extension=py,html PROJECT_NAME
     (windows: python venv/Scripts/django-admin.py startproject --template=path/to/djeroku/git-or-zip-or-folder --extension=py,html PROJECT_NAME)
 
     cd PROJECT_NAME
@@ -211,8 +211,9 @@ again, this time with the djeroku-app template. If you forget the --extension
 flag below, the default djeroku_app templates will not be copied
 correctly. Not the end of the world, but you might as well get it right.
 
-    cd PROJECT_NAME/PROJECT_NAME/apps
-    python ../../../venv/Scripts/django-admin.py startapp --template=path/to/djeroku-app/git-or-zip-or-folder --extension=py,html APP_NAME
+    cd PROJECT_NAME/apps
+    python ../../../venv/local/bin/django-admin.py startapp --template=https://github.com/djeroku/djeroku_app/archive/master.zip --extension=py,html APP_NAME
+    (windows: python ../../../venv/Scripts/django-admin.py startapp --template=path/to/djeroku-app/git-or-zip-or-folder --extension=py,html APP_NAME)
 
 Open up settings/common.py and add your new app to the LOCAL_APPS tuple
 
