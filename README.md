@@ -187,10 +187,11 @@ Install django 1.5.x -- notice the quotes
 
 Create a new django project using Djeroku as the template
 
-    python venv/Scripts/django-admin.py startproject --template=path/to/djeroku/git-or-zip-or-folder --extension=py,html PROJECT_NAME
+    python venv/local/bin/django-admin.py startproject --template=path/to/djeroku/git-or-zip-or-folder --extension=py,html PROJECT_NAME
+    (windows: python venv/Scripts/django-admin.py startproject --template=path/to/djeroku/git-or-zip-or-folder --extension=py,html PROJECT_NAME)
 
     cd PROJECT_NAME
-    pip install -r PROJECT_NAME/reqs/dev.txt
+    pip install -r reqs/dev.txt
 
 The django-skel docs have great advice here if the above command fails:
 you are missing required libraries --
