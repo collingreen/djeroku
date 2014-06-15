@@ -6,8 +6,7 @@ except ImportError: import json
 
 def json_response(success, mimetype='application/json', **kwargs):
     """Accepts boolean success and any other keyword arguments
-    and returns an HttpResponse with them all json encoded into
-    a single object."""
+    and returns an HttpResponse with a json encoded object."""
     response = {'success': success}
     response.update(kwargs)
     return HttpResponse(json.dumps(response), mimetype=mimetype)
@@ -115,19 +114,20 @@ def validate_required(request, required_fields, all_failures=True,
                 all above tests with failing one, then the other
     """
 
-    if error_messages is None:
-        error_messages = {
-            'missing_field': _('Missing Required Field'),
-            'failed_validation': _('Validation Failed'),
-            'failed_clean': _('Validation Failed')
-        }
+    default_error_messages = {
+        'missing_field': _('Missing Required Field'),
+        'failed_validation': _('Validation Failed'),
+        'failed_clean': _('Validation Failed')
+    }
+    error_messages = default_error_messages.update(error_messages or {})
 
     failures = {}
     clean = {}
 
     for field, field_info in required_fields.iteritems():
         # check that field exists
-        if field not in request.POST and (not check_get or field not in request.GET):
+        if field not in request.POST \
+                and (not check_get or field not in request.GET):
             if all_failures:
                 failures[field] = error_messages['missing_field']
                 continue
@@ -141,10 +141,11 @@ def validate_required(request, required_fields, all_failures=True,
             field_raw_value = request.GET[field]
 
         # validate field if function is available
-        if 'validation' in field_info and not field_info['validation'](field_raw_value):
+        if 'validation' in field_info \
+                and not field_info['validation'](field_raw_value):
 
             # get correct validation failure message
-            message = error_messages['validation_failed']
+            message = error_messages['failed_validation']
             if 'validation_failed_message' in field_info:
                 try:
                     message = field_info['validation_failed_message'] % field
@@ -164,9 +165,10 @@ def validate_required(request, required_fields, all_failures=True,
                 clean[field] = field_info['clean'](field_raw_value)
             except:
                 # get correct clean failure message
-                message = error_messages['clean_failed']
+                message = error_messages['failed_clean']
                 if 'clean_failed_message' in field_info:
-                    if field_info['clean_failed_message'] is True and 'validation_failed_message' in field_info:
+                    if field_info['clean_failed_message'] is True \
+                            and 'validation_failed_message' in field_info:
                         message_base = field_info['validation_failed_message']
                     else:
                         message_base = field_info['clean_failed_message']
