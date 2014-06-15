@@ -220,7 +220,7 @@ JINJA2_EXTENSIONS = (
     'pipeline.jinja2.ext.PipelineExtension',
 
     # this one was used before pipeline had an official version
-    #'libs.djeroku.pipeline_coffin.PipelineExtension',
+    #'lib.djeroku.pipeline_coffin.PipelineExtension',
 )
 ########## END JINJA2 CONFIGURATION
 

@@ -36,7 +36,7 @@
 #       |-- fabfile.py (the fabric script that helps set everything up on heroku)
 #       |-- manage.py (the django script that, well, manages everything)
 #       |-- djeroku_site (the folder containing the code)
-#          |-- libs (holds all the 'extras' djeroku provides - look through them, some are quite helpful)
+#          |-- lib (holds all the 'extras' djeroku provides - look through them, some are quite helpful)
 #          |-- settings (all the settings for dev vs production)
 #          |-- static (this is where all the static assets will be collected - generally don't add anything here directly)
 #          |-- templates (templates that do not belong in an app go here - djeroku comes with a default 404 and 500)
@@ -249,9 +249,9 @@ git push staging master
 # login, and some views I wrote to test the djeroku templatetags).
 # Next I confirm that all the parts I THINK are working actually ARE
 # working -- /admin, /nexus, and connecting to redis using the
-# libs/djeroku/djeroku_redis lib.
+# lib/djeroku/djeroku_redis lib.
 heroku run python manage.py shell
-from libs.djeroku.djeroku_redis import redis_connection
+from lib.djeroku.djeroku_redis import redis_connection
 r = redis_connection()
 r.set('test', 'does it work?')
 r.get('test')

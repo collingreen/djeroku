@@ -91,7 +91,7 @@ MIDDLEWARE_CLASSES += (
 # specifies the redis server url for development - is automatically
 # replaced by environment variable REDIS_SERVER_URL, which is also
 # automatically set on heroku production if using one of their
-# redis addons. See libs.djeroku.djeroku_redis for details
+# redis addons. See lib.djeroku.djeroku_redis for details
 REDIS_SERVER_URL = "localhost"
 ########## END REDIS CONFIGURATION
 

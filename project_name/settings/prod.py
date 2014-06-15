@@ -136,7 +136,7 @@ INSTALLED_APPS += (
 # See: http://django-storages.readthedocs.org/en/latest/backends/amazon-S3.html#settings
 #STATICFILES_STORAGE = DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 STATICFILES_STORAGE = DEFAULT_FILE_STORAGE = 'pipeline.storage.PipelineCachedStorage'
-#STATICFILES_STORAGE = DEFAULT_FILE_STORAGE = 'libs.djeroku.storages.S3CachedPipelineStorage'
+#STATICFILES_STORAGE = DEFAULT_FILE_STORAGE = 'lib.djeroku.storages.S3CachedPipelineStorage'
 
 # See: http://django-storages.readthedocs.org/en/latest/backends/amazon-S3.html#settings
 #AWS_CALLING_FORMAT = CallingFormat.SUBDOMAIN

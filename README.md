@@ -143,7 +143,7 @@ Inside the project folder, the settings work the same way with common.py
 holding all the overlapping settings and dev.py/prod.py overwriting as
 necessary.
 
-The libs folder is there for convenience so you can host external
+The lib folder is there for convenience so you can host external
 tools and libraries that don't belong as part of a full app. Djeroku has a
 module there with some simple tools that might come in handy (like a storages
 extension to enable versioning/compressing AND uploading static files to S3).
