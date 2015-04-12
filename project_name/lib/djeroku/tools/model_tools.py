@@ -37,7 +37,7 @@ class StandardPermission(models.Model):
     # user = models.OneToOneField(User)
 
     def check_permission(self, user):
-        return user == self.user or user.is_staff
+        return user.id == self.user.id or user.is_staff
 
 
 #######################
