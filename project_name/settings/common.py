@@ -197,13 +197,15 @@ THIRD_PARTY_APPS = (
     # Asynchronous task queue:
     'djcelery',
 
-	# gargoyle and nexus manager
-	'gargoyle',
-	'nexus',
+    # gargoyle and nexus manager
+    'gargoyle',
+    'nexus',
 
+    # additional django manage.py tools
     'django_extensions',
-	
-	'apps.djeroku',
+
+    # djeroku app for extra utils
+    'apps.djeroku',
 )
 
 LOCAL_APPS = (
@@ -218,9 +220,6 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 JINJA2_EXTENSIONS = (
     'pipeline.jinja2.ext.PipelineExtension',
-
-    # this one was used before pipeline had an official version
-    #'lib.djeroku.pipeline_coffin.PipelineExtension',
 )
 ########## END JINJA2 CONFIGURATION
 
