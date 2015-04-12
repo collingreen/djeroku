@@ -1,5 +1,5 @@
 Django>=1.5.0,<1.6
-django-celery==3.0.21
+django-celery==3.1.9
 Fabric==1.7.0
 South==0.7.6
 Jinja2==2.7
