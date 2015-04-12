@@ -13,15 +13,15 @@
 
 # All the ridiculous subfolders with the same name can get confusing. You can
 # alleviate this by 1. putting the entire project into a different named folder,
-# and 2. using a different named app inside of the project, and 3. putting your
+# 2. using a different named app inside of the project, and 3. putting your
 # venv folder at the same level as the manage.py file instead of a folder above it.
 # That being said, it isn't that bad once you spend a bit of time in it (the top
 # level folder simply holds your project and your venv, below that is the
 # folder holding your manage.py and all the deployment information, and
 # finally, below that is where all the code actually lives. You'll spend 95%
-# of your time all the down in the apps folder.
+# of your time all the way down in the apps folder.
 
-# for clarity (lol) and reference, here is an overview of what the file system
+# For clarity (lol) and reference, here is an overview of what the file system
 # will look like when everything is done
 
 # my-development-folder
@@ -36,7 +36,7 @@
 #       |-- fabfile.py (the fabric script that helps set everything up on heroku)
 #       |-- manage.py (the django script that, well, manages everything)
 #       |-- djeroku_site (the folder containing the code)
-#          |-- libs (holds all the 'extras' djeroku provides - look through them, some are quite helpful)
+#          |-- lib (holds all the 'extras' djeroku provides - look through them, some are quite helpful)
 #          |-- settings (all the settings for dev vs production)
 #          |-- static (this is where all the static assets will be collected - generally don't add anything here directly)
 #          |-- templates (templates that do not belong in an app go here - djeroku comes with a default 404 and 500)
@@ -249,9 +249,9 @@ git push staging master
 # login, and some views I wrote to test the djeroku templatetags).
 # Next I confirm that all the parts I THINK are working actually ARE
 # working -- /admin, /nexus, and connecting to redis using the
-# libs/djeroku/djeroku_redis lib.
+# lib/djeroku/djeroku_redis lib.
 heroku run python manage.py shell
-from libs.djeroku.djeroku_redis import redis_connection
+from lib.djeroku.djeroku_redis import redis_connection
 r = redis_connection()
 r.set('test', 'does it work?')
 r.get('test')

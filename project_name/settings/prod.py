@@ -1,16 +1,19 @@
 """
-Production settings and globals.
+Production settings
 
 Debug OFF
 
 Djeroku Defaults:
-    SMTP Email -- Requires EMAIL_HOST, EMAIL_HOST_PASSWORD, EMAIL_HOST_USER, EMAIL_PORT
+    Mandrill Email -- Requires Mandrill addon
     postgresify for heroku postgres configuration
     memcachify for heroku memcache configuration
-    redisify for heroku redis cache configuration
+    Commented by default - redisify for heroku redis cache configuration
     amqplib for queue management -- RABBITMQ_URL or CLOUDAMQP_URL -- look at celery config section about workers/connections
     django-pipeline + storages
         -- optionally with s3boto -- AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME
+
+    JSMin
+    CSSMin
     HTML Compression from pipeline
 
 
@@ -136,7 +139,7 @@ INSTALLED_APPS += (
 # See: http://django-storages.readthedocs.org/en/latest/backends/amazon-S3.html#settings
 #STATICFILES_STORAGE = DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 STATICFILES_STORAGE = DEFAULT_FILE_STORAGE = 'pipeline.storage.PipelineCachedStorage'
-#STATICFILES_STORAGE = DEFAULT_FILE_STORAGE = 'libs.djeroku.storages.S3CachedPipelineStorage'
+#STATICFILES_STORAGE = DEFAULT_FILE_STORAGE = 'lib.djeroku.storages.S3CachedPipelineStorage'
 
 # See: http://django-storages.readthedocs.org/en/latest/backends/amazon-S3.html#settings
 #AWS_CALLING_FORMAT = CallingFormat.SUBDOMAIN

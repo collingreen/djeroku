@@ -37,7 +37,7 @@ class StandardPermission(models.Model):
     # user = models.OneToOneField(User)
 
     def check_permission(self, user):
-        return user == self.user or user.is_staff
+        return user.id == self.user.id or user.is_staff
 
 
 #######################
@@ -72,7 +72,7 @@ def naive_downcast(model_instance):
     # didnt find anything, assume fully downcasted
     return model_instance
 
-def listingmanager_downcast(model_instance):
+def inheritancemanager_downcast(model_instance):
     """Downcasts a model instance that is part of a model with objects
     set to inheritancemanager as defined in django-model-utils
     https://github.com/carljm/django-model-utils#inheritancemanager."""

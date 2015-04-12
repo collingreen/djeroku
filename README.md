@@ -143,7 +143,7 @@ Inside the project folder, the settings work the same way with common.py
 holding all the overlapping settings and dev.py/prod.py overwriting as
 necessary.
 
-The libs folder is there for convenience so you can host external
+The lib folder is there for convenience so you can host external
 tools and libraries that don't belong as part of a full app. Djeroku has a
 module there with some simple tools that might come in handy (like a storages
 extension to enable versioning/compressing AND uploading static files to S3).
@@ -187,10 +187,11 @@ Install django 1.5.x -- notice the quotes
 
 Create a new django project using Djeroku as the template
 
-    python venv/Scripts/django-admin.py startproject --template=path/to/djeroku/git-or-zip-or-folder --extension=py,html PROJECT_NAME
+    python venv/local/bin/django-admin.py startproject --template=https://github.com/djeroku/djeroku/archive/master.zip --extension=py,html PROJECT_NAME
+    (windows: python venv/Scripts/django-admin.py startproject --template=path/to/djeroku/git-or-zip-or-folder --extension=py,html PROJECT_NAME)
 
     cd PROJECT_NAME
-    pip install -r PROJECT_NAME/reqs/dev.txt
+    pip install -r reqs/dev.txt
 
 The django-skel docs have great advice here if the above command fails:
 you are missing required libraries --
@@ -210,8 +211,9 @@ again, this time with the djeroku-app template. If you forget the --extension
 flag below, the default djeroku_app templates will not be copied
 correctly. Not the end of the world, but you might as well get it right.
 
-    cd PROJECT_NAME/PROJECT_NAME/apps
-    python ../../../venv/Scripts/django-admin.py startapp --template=path/to/djeroku-app/git-or-zip-or-folder --extension=py,html APP_NAME
+    cd PROJECT_NAME/apps
+    python ../../../venv/local/bin/django-admin.py startapp --template=https://github.com/djeroku/djeroku_app/archive/master.zip --extension=py,html APP_NAME
+    (windows: python ../../../venv/Scripts/django-admin.py startapp --template=path/to/djeroku-app/git-or-zip-or-folder --extension=py,html APP_NAME)
 
 Open up settings/common.py and add your new app to the LOCAL_APPS tuple
 

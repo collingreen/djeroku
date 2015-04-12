@@ -8,6 +8,8 @@ Development settings and globals.
     Local Memory Cache
     Debug Toolbar Enabled
 
+    Task Queue Faked (ALWAYS_EAGER_TRUE)
+    - Or local Redis
 """
 
 
@@ -64,11 +66,6 @@ CACHES = {
 ########## END CACHE CONFIGURATION
 
 
-########## CELERY CONFIGURATION
-# See: http://docs.celeryq.org/en/latest/configuration.html#celery-always-eager
-CELERY_ALWAYS_EAGER = True
-########## END CELERY CONFIGURATION
-
 
 ########## TOOLBAR CONFIGURATION
 # See: https://github.com/django-debug-toolbar/django-debug-toolbar#installation
@@ -91,7 +88,19 @@ MIDDLEWARE_CLASSES += (
 # specifies the redis server url for development - is automatically
 # replaced by environment variable REDIS_SERVER_URL, which is also
 # automatically set on heroku production if using one of their
-# redis addons. See libs.djeroku.djeroku_redis for details
+# redis addons. See lib.djeroku.djeroku_redis for details
 REDIS_SERVER_URL = "localhost"
 ########## END REDIS CONFIGURATION
+
+########## CELERY CONFIGURATION
+# See: http://docs.celeryq.org/en/latest/configuration.html#celery-always-eager
+# Fakes a queue and just processes tasks immediately in the same thread
+CELERY_ALWAYS_EAGER = True
+
+# With ALWAYS_EAGER false, uses a local redis server for the queue
+BROKER_URL = 'redis://' + REDIS_SERVER_URL
+CELERY_RESULT_BACKEND = 'redis://' + REDIS_SERVER_URL
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_ACCEPT_CONTENT = ['json']
+########## END CELERY CONFIGURATION
 
