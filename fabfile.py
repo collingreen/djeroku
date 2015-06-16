@@ -247,11 +247,16 @@ def get_heroku_app_names():
     lines = stdout.split("\n")
 
     pattern = r'(.*)\t.*heroku\.com/(.*)\.git (\(.*\))'
+    pattern2 = r'(.*)\s+.*heroku.*:(.*)\.git \(.*\)'
     remotes = {}
     for line in lines:
         match = re.match(pattern, line)
         if match:
             remotes[match.group(1)] = match.group(2)
+        else:
+            match2 = re.match(pattern2, line)
+            if match2:
+                remotes[match2.group(1)] = match2.group(2)
 
     return remotes
 
