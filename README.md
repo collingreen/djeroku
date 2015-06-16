@@ -105,6 +105,6 @@ want and don't want.
 
 
 ### More Instructions
-Check out the deployment_example.md for more detailed instructions for creating
+Check out the [deployment example](https://github.com/collingreen/djeroku/blob/master/deployment_example.md) for more detailed instructions for creating
 a new project, adding a new app, and deploying it to both staging and
 production.
