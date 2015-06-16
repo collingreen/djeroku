@@ -11,7 +11,7 @@ sense on your system (brew, apt-get, etc).
 
 
 ### Creating a new Djeroku Project
-Copy the create_djeroku_project.py file from github. This is the only thing
+Copy the [create_djeroku_project.py](https://raw.githubusercontent.com/collingreen/djeroku/master/create_djeroku_project.py) file from github. This is the only thing
 you will initially need to start creating djeroku projects.
 
 `python create_djeroku_project.py project_name`
