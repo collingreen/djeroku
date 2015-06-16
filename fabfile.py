@@ -16,10 +16,14 @@ Includes helpful commands for managing a project.
 - web
   Same as serve, but runs the web process using foreman instead of the django
   development server directly. Can sometimes simulate the production
-  environment better than the debug server.
+  environment better than the debug server. You'll probably need to install
+  some of the production requirements.
 
 - worker
   Runs a celery worker to process background tasks your application creates.
+
+- test
+  Runs your tests using the django test runner.
 
 - deploy_staging
   Deploys the current local master branch to staging by calling
