@@ -187,7 +187,7 @@ def serve():
     venv('python manage.py syncdb')
     venv('python manage.py migrate')
     venv('python manage.py collectstatic --noinput')
-    venv('python manage.py runserver')
+    venv('python manage.py runserver 0.0.0.0:8000')
 
 @task
 def web():
