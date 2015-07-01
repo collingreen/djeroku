@@ -281,8 +281,8 @@ def run(cmd):
 
 def get_heroku_app_names():
     """Expects the default setup above."""
-    p = subprocess.Popen(["git", "remote", "-v"], stdout=subprocess.PIPE)
-    stdout, stderr = p.communicate()
+    proc = subprocess.Popen(["git", "remote", "-v"], stdout=subprocess.PIPE)
+    stdout, stderr = proc.communicate()
     lines = stdout.split("\n")
 
     pattern = r'(.*)\t.*heroku\.com/(.*)\.git (\(.*\))'

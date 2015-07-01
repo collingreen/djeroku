@@ -17,7 +17,7 @@ Development settings and globals.
 
 from os.path import join, normpath
 
-from common import *  # NOQA
+from project.settings.common import *  # NOQA
 
 
 # DEBUG CONFIGURATION

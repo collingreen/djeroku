@@ -39,7 +39,7 @@ from memcacheify import memcacheify
 # https://github.com/dirn/django-heroku-redisify
 # from redisify import redisify
 
-from common import *  # NOQA
+from project.settings.common import *  # NOQA
 
 
 # ALLOWED HOSTS

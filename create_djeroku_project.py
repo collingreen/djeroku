@@ -100,10 +100,10 @@ def create_djeroku_project(project_name):
     )
 
     # move project contents to real dir
-    for f in os.listdir(temp_project_path):
+    for filename in os.listdir(temp_project_path):
         shutil.move(
-            os.path.join(temp_project_path, f),
-            os.path.join(project_name, f)
+            os.path.join(temp_project_path, filename),
+            os.path.join(project_name, filename)
         )
 
     # remove temp dir
@@ -123,23 +123,26 @@ def create_djeroku_project(project_name):
 
 def check_dependencies(dependencies):
     logging.info('checking for dependencies')
-    missing = []
+    missing_dependencies = []
     for dependency_name, command in dependencies.items():
-        logging.debug('- checking dependency: %s' % dependency_name)
-        found = _check_dependency(dependency_name, command)
+        logging.debug('- checking dependency: %s', dependency_name)
+        found = _check_dependency(command)
 
         if not found:
-            missing.append(dependency_name)
+            missing_dependencies.append(dependency_name)
 
-    return dict(dependencies_met=len(missing) == 0, missing=missing)
+    return dict(
+        dependencies_met=len(missing_dependencies) == 0,
+        missing=missing_dependencies
+    )
 
 
-def _check_dependency(dependency_name, command):
-    FNULL = open(os.devnull, 'wb')
+def _check_dependency(command):
+    devnull = open(os.devnull, 'wb')
     return 0 == subprocess.call(
         command,
         shell=True,
-        stdout=FNULL,
+        stdout=devnull,
         stderr=subprocess.STDOUT,
         close_fds=True
     )
@@ -192,7 +195,7 @@ Happy coding!""" % dict(
         venv_command=get_venv_command()
     )
 
-if __name__ == '__main__':
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         'project_name',
@@ -214,7 +217,7 @@ if __name__ == '__main__':
     result = check_dependencies(CONFIG['dependencies'])
     if not result['dependencies_met']:
         for missing in result['missing']:
-            logging.error('Missing required dependency `%s`' % missing)
+            logging.error('Missing required dependency `%s`', missing)
             logging.error('Dependencies not met - aborting project creation.')
             sys.exit(1)
 
@@ -229,8 +232,11 @@ if __name__ == '__main__':
         sys.exit(1)
 
     # create folder
-    logging.info('creating project folder %s' % args.project_name)
+    logging.info('creating project folder %s', args.project_name)
     os.makedirs(args.project_name)
 
     # create the project
     create_djeroku_project(args.project_name)
+
+if __name__ == '__main__':
+    main()
