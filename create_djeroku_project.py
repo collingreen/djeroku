@@ -31,7 +31,8 @@ CONFIG = {
     'temp_project_path_format': '_djeroku_temp_project_%d',
     'django_pip_version': '"django>=1.8,<1.9"',
     # point this to a local folder if you cloned djeroku locally
-    'djeroku_template_path': 'https://github.com/djeroku/djeroku/archive/master.zip',
+    'djeroku_template_path':
+        'https://github.com/djeroku/djeroku/archive/master.zip',
     'dependencies': {
         'pip': 'pip -V',
         'virtualenv': 'virtualenv --version',
@@ -43,8 +44,10 @@ CONFIG = {
 def run(cmd):
     return 0 == subprocess.call(cmd, shell=True)
 
+
 def venv(project_name, cmd):
     return run('%s && %s' % (get_venv_command(project_name), cmd))
+
 
 def get_venv_command(project_name=None):
     pattern = 'source %svenv/bin/activate'
@@ -55,12 +58,13 @@ def get_venv_command(project_name=None):
     project = project_name + os.path.sep if project_name else ''
     return pattern % project
 
+
 def create_djeroku_project(project_name):
     """
-    Create a new project folder in this directory. Will prompt you for a project
-    name, then create a new django project using the latest djeroku project
-    template, including creating a virtualenvironment and installing all the
-    dependencies.
+    Create a new project folder in this directory. Will prompt you for a
+    project name, then create a new django project using the latest djeroku
+    project template, including creating a virtualenvironment and installing
+    all the dependencies.
     """
 
     # create virtualenv folder if necessary
@@ -73,7 +77,10 @@ def create_djeroku_project(project_name):
 
     # install django
     logging.info('installing django')
-    venv(project_name, 'pip install %s' % CONFIG['django_pip_version'])
+    venv(
+        project_name,
+        'pip install %s' % CONFIG['django_pip_version']
+    )
 
     # create project in temp dir
     temp_count = 1
@@ -85,7 +92,8 @@ def create_djeroku_project(project_name):
 
     logging.info('creating temporary project filestructure')
     os.makedirs(temp_project_path)
-    venv(project_name,
+    venv(
+        project_name,
         'django-admin startproject --template=%s --extension=py,html %s %s' % (
             CONFIG['djeroku_template_path'], project_name, temp_project_path
         )
@@ -112,6 +120,7 @@ def create_djeroku_project(project_name):
 
     return True
 
+
 def check_dependencies(dependencies):
     logging.info('checking for dependencies')
     missing = []
@@ -127,12 +136,14 @@ def check_dependencies(dependencies):
 
 def _check_dependency(dependency_name, command):
     FNULL = open(os.devnull, 'wb')
-    return 0 == subprocess.call(command,
-            shell=True,
-            stdout=FNULL,
-            stderr=subprocess.STDOUT,
-            close_fds=True
-        )
+    return 0 == subprocess.call(
+        command,
+        shell=True,
+        stdout=FNULL,
+        stderr=subprocess.STDOUT,
+        close_fds=True
+    )
+
 
 def run_django_setup(project_name):
     logging.info('running django setup commands')
@@ -142,6 +153,7 @@ def run_django_setup(project_name):
         project_name,
         'python %s/manage.py collectstatic --noinput' % project_name
     )
+
 
 def print_welcome_message(project_name):
     print """
@@ -183,15 +195,15 @@ Happy coding!""" % dict(
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument(
-            'project_name',
-            help='name for new project'
-        )
+        'project_name',
+        help='name for new project'
+    )
     parser.add_argument(
-            '-v',
-            '--verbose',
-            help='increase output verbosity',
-            action='store_true'
-        )
+        '-v',
+        '--verbose',
+        help='increase output verbosity',
+        action='store_true'
+    )
     args = parser.parse_args()
 
     if args.verbose:

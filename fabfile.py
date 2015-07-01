@@ -7,7 +7,8 @@ Includes helpful commands for managing a project.
   One time setup for your project. Run this to create your heroku deployment
   targets. Creates both a staging and a production app on heroku, including
   all the necessary settings and free addons. Also creates a pipeline from
-  staging to production and sets up the local git repository and heroku remotes.
+  staging to production and sets up the local git repository and heroku
+  remotes.
 
 - serve
   Syncs the db, runs any pending migrations, collects static assets, then runs
@@ -42,9 +43,9 @@ Includes helpful commands for managing a project.
 
 Deployment:
   You can deploy your app to staging by pushing master to the staging remote:
-  `git push staging master`. This will build your project and make it accessible
-  on staging-<your-app-name>.herokuapp.com. You almost certainly will want to
-  then call `heroku run python manage.py syncdb`
+  `git push staging master`. This will build your project and make it
+  accessible on staging-<your-app-name>.herokuapp.com. You almost certainly
+  will want to then call `heroku run python manage.py syncdb`
 
   When the code on staging is ready for production, you can promote the staging
   slug to your production app by calling `heroku pipeline:promote` or `fab
@@ -53,7 +54,7 @@ Deployment:
 """
 
 from fabric.contrib.console import confirm, prompt
-from fabric.api import abort, env, local, settings, task
+from fabric.api import abort, local, settings, task
 import string
 import random
 import platform
@@ -97,55 +98,81 @@ def heroku_setup():
     environment it is running in (for example, so staging can use a
     non-production db follower)
     """
-    app_name = prompt('What name should this heroku app use?', default='{{project_name}}')
+    app_name = prompt(
+        'What name should this heroku app use?',
+        default='server'
+    )
     staging_name = '%s-staging' % app_name
 
     # create the apps on heroku
-    cont('heroku apps:create %s --remote %s --addons %s' %
-            (staging_name, STAGING_REMOTE, ','.join(HEROKU_ADDONS)),
-            "Failed to create the staging app on heroku. Continue anyway?")
-    cont('heroku apps:create %s --remote %s --addons %s' %
-            (app_name, PRODUCTION_REMOTE, ','.join(HEROKU_ADDONS)),
-            "Failed to create the production app on heroku. Continue anyway?")
+    cont(
+        'heroku apps:create %s --remote %s --addons %s' %
+        (staging_name, STAGING_REMOTE, ','.join(HEROKU_ADDONS)),
+        'Failed to create the staging app on heroku. Continue anyway?'
+    )
+    cont(
+        'heroku apps:create %s --remote %s --addons %s' %
+        (app_name, PRODUCTION_REMOTE, ','.join(HEROKU_ADDONS)),
+        'Failed to create the production app on heroku. Continue anyway?'
+    )
 
     # set configs
     for config in HEROKU_CONFIGS:
-        cont('heroku config:set %s --app=%s' % (config, staging_name),
-            "Failed to set %s on Staging. Continue anyway?" % config)
-        cont('heroku config:set %s --app=%s' % (config, app_name),
-            "Failed to set %s on Production. Continue anyway?" % config)
+        cont(
+            'heroku config:set %s --app=%s' % (config, staging_name),
+            'Failed to set %s on Staging. Continue anyway?' % config
+        )
+        cont(
+            'heroku config:set %s --app=%s' % (config, app_name),
+            'Failed to set %s on Production. Continue anyway?' % config
+        )
 
     # set debug
-    cont('heroku config:set DEBUG=True --app=%s' % staging_name,
-        "Failed to set DEBUG on Staging. Continue anyway?")
-    cont('heroku config:set DEBUG=False --app=%s' % app_name,
-        "Failed to set DEBUG on Production. Continue anyway?")
+    cont(
+        'heroku config:set DEBUG=True --app=%s' % staging_name,
+        'Failed to set DEBUG on Staging. Continue anyway?'
+    )
+    cont(
+        'heroku config:set DEBUG=False --app=%s' % app_name,
+        'Failed to set DEBUG on Production. Continue anyway?'
+    )
 
     # set environment type
-    cont('heroku config:set ENVIRONMENT_TYPE=staging --app=%s' % staging_name,
-        "Failed to set ENVIRONMENT_TYPE on Staging. Continue anyway?")
-    cont('heroku config:set ENVIRONMENT_TYPE=production --app=%s' % app_name,
-        "Failed to set ENVIRONMENT_TYPE on Production. Continue anyway?")
+    cont(
+        'heroku config:set ENVIRONMENT_TYPE=staging --app=%s' % staging_name,
+        'Failed to set ENVIRONMENT_TYPE on Staging. Continue anyway?'
+    )
+    cont(
+        'heroku config:set ENVIRONMENT_TYPE=production --app=%s' % app_name,
+        'Failed to set ENVIRONMENT_TYPE on Production. Continue anyway?'
+    )
 
     # set secret key on production
-    cont('heroku config:set SECRET_KEY="%s" --app=%s' % (
-            generate_secret_key(), app_name
+    cont(
+        'heroku config:set SECRET_KEY="%s" --app=%s' % (
+            generate_secret_key(),
+            app_name
         ),
         'Failed to set SECRET_KEY on Production. Continue anyway?'
     )
 
     # create a pipeline from staging to production
-    pipelines_enabled = cont( 'heroku labs:enable pipelines',
-            "Failed to enable Pipelines. Continue anyway?")
+    pipelines_enabled = cont(
+        'heroku labs:enable pipelines',
+        'Failed to enable Pipelines. Continue anyway?'
+    )
     if pipelines_enabled:
         pipeline_plugin = cont(
-                'heroku plugins:install ' + \
-                'git://github.com/heroku/heroku-pipeline.git',
-            'Failed to install pipelines plugin. Continue anyway?')
+            'heroku plugins:install ' +
+            'git://github.com/heroku/heroku-pipeline.git',
+            'Failed to install pipelines plugin. Continue anyway?'
+        )
         if pipeline_plugin:
-            cont('heroku pipeline:add -a %s %s' % (staging_name, app_name),
-                'Failed to create pipeline from Staging to Production. ' + \
-                'Continue anyway?')
+            cont(
+                'heroku pipeline:add -a %s %s' % (staging_name, app_name),
+                'Failed to create pipeline from Staging to Production. ' +
+                'Continue anyway?'
+            )
 
     # set git to default to staging
     local('git init')
@@ -155,14 +182,16 @@ def heroku_setup():
     local('heroku git:remote -r staging --app=%s' % staging_name)
     local('heroku git:remote -r production --app=%s' % app_name)
 
+
 @task
 def deploy_staging():
-  """
-  Deploys the current local master branch to staging by calling
-  `git push staging master`, then syncs, migrates, and collects static.
-  """
-  local('git push staging master')
-  after_deploy('staging')
+    """
+    Deploys the current local master branch to staging by calling
+    `git push staging master`, then syncs, migrates, and collects static.
+    """
+    local('git push staging master')
+    after_deploy('staging')
+
 
 @task
 def deploy_production():
@@ -173,10 +202,12 @@ def deploy_production():
     local('git push production master')
     after_deploy('production')
 
+
 @task
 def promote_production():
     """Promotes the staging slug to production."""
     local('heroku pipeline:promote')
+
 
 @task
 def serve():
@@ -189,6 +220,7 @@ def serve():
     venv('python manage.py collectstatic --noinput')
     venv('python manage.py runserver 0.0.0.0:8000')
 
+
 @task
 def web():
     """
@@ -200,31 +232,36 @@ def web():
     venv('python manage.py collectstatic --noinput')
     venv('foreman start web')
 
+
 @task
 def worker():
     """Run a task queue worker."""
     venv('python manage.py celery worker')
+
 
 @task
 def test():
     """Run the django tests."""
     venv('python manage.py test')
 
-########## HELPERS
+
+# HELPERS
 def venv(cmd):
     if platform.system == 'Windows':
         # untested - good luck, windows people! (submit a working PR)
         return run('venv/bin/activate.bat && ' + cmd)
     return run('source venv/bin/activate && ' + cmd)
 
+
 def after_deploy(remote):
     app_name = get_heroku_app_names()[remote]
     run('heroku run python manage.py syncdb --app=%s' % app_name)
     run('heroku run python manage.py migrate --app=%s' % app_name)
-    run('heroku run python manage.py collectstatic --noinput --app=%s' % (
-            app_name
-        )
+    run(
+        'heroku run python manage.py collectstatic --noinput --app=%s' %
+        app_name
     )
+
 
 def cont(cmd, message):
     with settings(warn_only=True):
@@ -237,8 +274,10 @@ def cont(cmd, message):
         return False
     return True
 
+
 def run(cmd):
     return subprocess.call(cmd, shell=True)
+
 
 def get_heroku_app_names():
     """Expects the default setup above."""
@@ -260,10 +299,10 @@ def get_heroku_app_names():
 
     return remotes
 
+
 def generate_secret_key(key_length=64):
     """Randomly generate a 64 character key you can stick in your
     settings/environment"""
     options = string.digits + string.letters + ".,!@#$%^&*()-_+={}"
     return ''.join([random.choice(options) for i in range(key_length)])
-########## END HELPERS
-
+# END HELPERS
