@@ -17,26 +17,26 @@ Development settings and globals.
 
 from os.path import join, normpath
 
-from common import *
+from project.settings.common import *  # NOQA
 
 
-########## DEBUG CONFIGURATION
+# DEBUG CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
 DEBUG = True
-########## END DEBUG CONFIGURATION
+# END DEBUG CONFIGURATION
 
-########## ALLOWED HOSTS
+# ALLOWED HOSTS
 # https://docs.djangoproject.com/en/1.8/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ['127.0.0.1', u'localhost']
-########## END ALLOWED HOSTS
+# END ALLOWED HOSTS
 
-########## EMAIL CONFIGURATION
+# EMAIL CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-########## END EMAIL CONFIGURATION
+# END EMAIL CONFIGURATION
 
 
-########## DATABASE CONFIGURATION
+# DATABASE CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
     'default': {
@@ -48,42 +48,36 @@ DATABASES = {
         'PORT': '',
     }
 }
-########## END DATABASE CONFIGURATION
+# END DATABASE CONFIGURATION
 
 
-########## CACHE CONFIGURATION
+# CACHE CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#caches
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
     }
 }
-########## END CACHE CONFIGURATION
+# END CACHE CONFIGURATION
 
 
-
-########## TOOLBAR CONFIGURATION
-# See: https://github.com/django-debug-toolbar/django-debug-toolbar#installation
+# TOOLBAR CONFIGURATION
+# https://github.com/django-debug-toolbar/django-debug-toolbar#installation
 INSTALLED_APPS += (
     'debug_toolbar',
 )
-
-# See: https://github.com/django-debug-toolbar/django-debug-toolbar#installation
 INTERNAL_IPS = ('127.0.0.1',)
-
-# See: https://github.com/django-debug-toolbar/django-debug-toolbar#installation
 MIDDLEWARE_CLASSES += (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
-########## END TOOLBAR CONFIGURATION
+# END TOOLBAR CONFIGURATION
 
 
-
-########## REDIS CONFIGURATION
+# REDIS CONFIGURATION
 REDIS_SERVER_URL = environ.get('REDIS_SERVER_URL', 'localhost')
-########## END REDIS CONFIGURATION
+# END REDIS CONFIGURATION
 
-########## CELERY CONFIGURATION
+# CELERY CONFIGURATION
 # See: http://docs.celeryq.org/en/latest/configuration.html#celery-always-eager
 # Fakes a queue and just processes tasks immediately in the same thread
 CELERY_ALWAYS_EAGER = True
@@ -93,5 +87,4 @@ BROKER_URL = 'redis://' + REDIS_SERVER_URL
 CELERY_RESULT_BACKEND = 'redis://' + REDIS_SERVER_URL
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_ACCEPT_CONTENT = ['json']
-########## END CELERY CONFIGURATION
-
+# END CELERY CONFIGURATION
