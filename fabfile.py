@@ -69,7 +69,6 @@ HEROKU_ADDONS = (
     'scheduler:standard',
     'redistogo:nano',
     'memcachier:dev',
-    'newrelic:wayne',
     'mandrill:starter',
     'papertrail:choklad'
 )
