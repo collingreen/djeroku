@@ -40,6 +40,9 @@ Includes helpful commands for managing a project.
   first deploy to staging, then test that everything is working as expected,
   then promote it to move that exact slug to the production environment.
 
+- lint
+  Runs flake8 on everything inside the project folder.
+
 
 Deployment:
   You can deploy your app to staging by pushing master to the staging remote:
@@ -243,6 +246,12 @@ def worker():
 def test():
     """Run the django tests."""
     venv('python manage.py test')
+
+
+@task
+def lint():
+    """Run flake8."""
+    venv('flake8 project')
 
 
 # HELPERS
