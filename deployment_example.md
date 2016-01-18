@@ -51,8 +51,8 @@ django-admin.py startapp djeroku_app project/apps/djeroku_app
 ~~~
 
 Now, open `settings/common.py` and add the new djeroku app to the LOCAL_APPS
-tuple. Djeroku sets the django BASE_DIR to the apps folder s you don't need to
-put any path on the front of your imports
+tuple. Djeroku sets the django BASE_DIR to the apps folder so you don't need to
+put any path on the front of your imports.
 ~~~
 LOCAL_APPS = (
     'djeroku_app',
