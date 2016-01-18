@@ -1,7 +1,7 @@
 Django>=1.8.0,<1.9
 Fabric==1.10.1
 redis==2.10.3
-dj-static==0.0.6
 django-celery==3.1.16
 django-extensions==1.5.5
 django-sslify>=0.2.7
+whitenoise==2.0.6
