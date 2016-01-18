@@ -6,7 +6,7 @@ applications, plus all the tools to easily deploy between them.
 
 
 ### Prerequisites
-Djeroku requires pip, virtualenv, git, and fabric. Install theme however makes
+Djeroku requires pip, virtualenv, git, and fabric. Install them however makes
 sense on your system (brew, apt-get, etc).
 
 
