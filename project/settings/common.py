@@ -152,6 +152,9 @@ TEMPLATES = [
 # MIDDLEWARE CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#middleware-classes
 MIDDLEWARE_CLASSES = (
+    # SSLify middleware (disabled by default)
+    'sslify.middleware.SSLifyMiddleware',
+
     # Default Django middleware.
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -239,6 +242,10 @@ CELERY_ACCEPT_CONTENT = ['json']
 setup_loader()
 # END CELERY CONFIGURATION
 
+# SSLIFY
+SSLIFY_DISABLE = environ.get('SSLIFY_DISABLE', True)
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# END SSLIFY
 
 # WSGI CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application

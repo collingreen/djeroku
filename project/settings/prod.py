@@ -114,3 +114,8 @@ SECRET_KEY = environ.get('SECRET_KEY', SECRET_KEY)
 # ADDITIONAL MIDDLEWARE
 MIDDLEWARE_CLASSES += ()
 # END ADDITIONAL MIDDLEWARE
+
+# SSLIFY
+# change to False to force all requests to use https
+SSLIFY_DISABLE = environ.get('SSLIFY_DISABLE', False)
+# END SSLIFY

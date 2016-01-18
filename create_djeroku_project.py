@@ -29,10 +29,10 @@ CONFIG = {
     'virtualenv_folder': 'venv',
     'valid_project_name_regex': r'^[a-zA-Z]+[a-zA-Z0-9_-]*$',
     'temp_project_path_format': '_djeroku_temp_project_%d',
-    'django_pip_version': '"django>=1.8,<1.9"',
+    'django_pip_version': '"django>=1.9,<1.10"',
     # point this to a local folder if you cloned djeroku locally
     'djeroku_template_path':
-        'https://github.com/djeroku/djeroku/archive/master.zip',
+        '/Users/collingreen/development/djeroku/v2/djeroku',
     'dependencies': {
         'pip': 'pip -V',
         'virtualenv': 'virtualenv --version',
