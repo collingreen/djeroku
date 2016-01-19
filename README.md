@@ -6,7 +6,7 @@ applications, plus all the tools to easily deploy between them.
 
 
 ### Prerequisites
-Djeroku requires pip, virtualenv, git, and fabric. Install them however makes
+Djeroku requires pip, virtualenv, and git. Install them however makes
 sense on your system (brew, apt-get, etc).
 
 
@@ -21,16 +21,16 @@ and leave you with some instructions and tools for what you can do next.
 
 
 #### Provisioning your Staging and Production heroku apps
-Djeroku projects have a fabfile.py that provides some helpful management
+Djeroku projects have a djeroku.py that provides some helpful management
 commands, including the automatic creating and setup of your staging and
-production apps on heroku. You will need fabric installed to use them.
+production apps on heroku.
 
-`fab heroku_setup`
+`python djeroku.py heroku_setup`
 
 
-#### Other Fabric Commands
-You can see all the commands available via the fabric file by running:
-`fab --list`
+#### Other Djeroku Commands
+You can see all the commands available via djeroku.py by running:
+`python djeroku.py --help`
 
 
 #### Creating a new app

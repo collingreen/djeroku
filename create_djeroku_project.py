@@ -32,7 +32,7 @@ CONFIG = {
     'django_pip_version': '"django>=1.9,<1.10"',
     # point this to a local folder if you cloned djeroku locally
     'djeroku_template_path':
-        '/Users/collingreen/development/djeroku/v2/djeroku',
+        'https://github.com/djeroku/djeroku/archive/master.zip',
     'dependencies': {
         'pip': 'pip -V',
         'virtualenv': 'virtualenv --version',
@@ -150,7 +150,7 @@ def _check_dependency(command):
 
 def run_django_setup(project_name):
     logging.info('running django setup commands')
-    venv(project_name, 'python %s/manage.py syncdb' % project_name)
+    venv(project_name, 'python %s/manage.py makemigrations' % project_name)
     venv(project_name, 'python %s/manage.py migrate' % project_name)
     venv(
         project_name,
@@ -159,11 +159,11 @@ def run_django_setup(project_name):
 
 
 def print_welcome_message(project_name):
-    print """
+    print("""
 %(project_name)s project created successfully!
 
 Thanks for using djeroku! You now have an empty django project skeleton in
-%(project_name)s/ ready for you to use. There is a new fabfile.py in your
+%(project_name)s/ ready for you to use. There is a new djeroku.py in your
 project folder that contains helpful commands you will likely use while
 developing.
 
@@ -173,27 +173,32 @@ Next Steps:
     %(venv_command)s
 
     # Run the one-time setup script to create your heroku projects:
-    fab heroku_setup
+    python djeroku.py heroku_setup
 
     # Create a new app inside the project/apps folder:
     mkdir project/apps/newappname
     django-admin.py startapp newappname project/apps/newappname
 
     # Run the dev server to view your project in your browser (localhost:8000)
-    fab serve
+    python djeroku.py serve
+
+    # Check out the other djeroku.py helper commands
+    python djeroku.py --help
 
 Remember, while developing, make sure you activate your virtualenvironment
-first or you will get errors about django or other libraries not being found.
+first or you will get errors about django or other libraries not being found
+(djeroku.py does this for you automatically).
 
 When you add new libraries to your project, be sure to add them to
 reqs/common.txt so heroku correctly includes them in your builds.
 
 Please file any issues at https://github.com/collingreen/djeroku.
 
-Happy coding!""" % dict(
+Happy coding!""".format(
         project_name=project_name,
         venv_command=get_venv_command()
-    )
+    ))
+
 
 def main():
     parser = argparse.ArgumentParser()

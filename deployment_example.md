@@ -17,15 +17,14 @@ also need to sign up for a heroku account.
 
 
 ## Setting up the staging and production heroku applications
-The fabric script in the top project directory has a useful function that
+The djeroku.py script in the top project directory has a useful function that
 basically handles the entire heroku setup process for you, including creating
-two (nearly) identical environments (staging and production), a bunch of free
-addons for each, and a deployment pipeline from staging to production. You
-should really have a look in the file to see what is happening under the hood.
-You can easily edit the addons or environment variables you want set inside the
-file.
+two (nearly) identical environments (staging and production), setting everything
+up, and provisioning a bunch of free addons for each. You should really have a
+look in the file to see what is happening under the hood.  You can easily edit
+the addons or environment variables you want set inside the file.
 
-`fab heroku_setup`
+`python djeroku.py heroku_setup`
 
 There are several prompts along the way and it will warn you if something fails.
 The most frustrating part of the entire process (assuming it works) is that
@@ -92,9 +91,9 @@ urlpatterns = [
 It's time to run the project locally. First, navigate back up to the
 djeroku_site folder that holds manage.py
 
-Run the djeroku fabric `serve` command -- this just runs the standard
-django syncdb, migrate, collecstatic, and then runserver commands
-`fab serve`
+Run the djeroku `serve` command -- this just runs the standard
+django migrate, collecstatic, and then runserver commands
+`python djeroku.py serve`
 
 Test it by going to 127.0.0.1:8000 and confirming you can see the Djeroku
 test content we created above (or whatever view you routed from '/').
@@ -103,13 +102,13 @@ TODO: insert screenshot
 
 
 ### Commit it?
-Look at all that amazing work we did. Better commit it. The `fab setup_heroku`
-command earlier created a git repository for us, so all we need to do is add and
-commit.
+Look at all that amazing work we did. Better commit it. The
+`python djeroku.py setup_heroku` command earlier created a git repository for
+us, so all we need to do is add and commit.
 
 ~~~
 git add .
-git commit -m"Initial Djeroku Template Commit"
+git commit -m"initial djeroku template commit"
 ~~~
 
 
@@ -119,10 +118,10 @@ uses git pushes for deployment, so you can just call `git push staging master`.
 You may also need to run database creation or migration scripts, and you may
 need to collect your static assets
 (`heroku run python manage.py <commands> --app yourapp-staging`). You can also
-just use the djeroku fabric file again which wraps all of those up into one
+just use the djeroku.py script again which wraps all of those up into one
 command:
 
-`fab deploy_staging`
+`python djeroku.py deploy staging`
 
 That's it! Heroku will churn away and crunch our commit into a working 'app
 slug' and turn our new staging app on.
@@ -146,20 +145,14 @@ fail while DEBUG is false. Update your settings if this is happening to you.
 
 
 ## Deploying to Production
-Now that we feel confident that the site is working in staging, we can take
-advantage of the pipeline created by the heroku_setup script and simply promote
-the slug from staging downstream to production.
-`heroku pipeline:promote --app=djeroku-site-staging`
+Now that we feel confident that the site is working in staging, we can deploy
+to production in exactly the same way as before:
+`git push production master`
 
-You can also just call `fab promote_production`
+You can also just call `python djeroku.py deploy production`
 
 Now the production site is up as well, at the production url,
 djeroku-site.herokuapp.com.
-
-NOTE: you CAN push directly to production, just like staging:
-`git push production master`
-or
-`fab deploy_production`
 
 
 Now, if this was a public app, I would leave it up (and probably set up a real
@@ -188,16 +181,20 @@ my-development-folder
       |-- reqs (holds the requirements files for dev vs production)
          |-- dev.txt (the python packages you need for development)
          |-- prod.txt (the python packages you need for production)
+         |-- common.txt (the python packages shared for both dev and production)
       |-- Procfile (defines the web, scheduler, and worker processes - also how heroku knows this is a python project)
       |-- wsgi.py (the python wsgi file that gunicorn actually uses)
-      |-- fabfile.py (the fabric script that helps set everything up on heroku)
+      |-- uwsgi.ini (config for uwsgi)
+      |-- djeroku.py (the script that helps set everything up on heroku)
+      |-- urls.py (top level django url management)
+      |-- tox.ini (tox config file)
       |-- manage.py (the django script that, well, manages everything)
       |-- project (the folder containing the code)
          |-- settings (all the settings for dev vs production)
             |-- common.py (settings used in both dev and production)
             |-- dev.py (settings for local development - generally easy setup)
             |-- prod.py (settings for production use - real settings and services)
-         |-- static (this is where all the static assets will be collected - generally don't add anything here directly)
+         |-- celery.py (config for celery - mainly for auto-task discovery)
          |-- apps (the folder that will contain all the individual apps you write)
             |-- djeroku_app (finally, the app that actually drives the site -- will have all the models, tests, templates etc)
 ~~~

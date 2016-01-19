@@ -4,7 +4,7 @@ Production settings
 Debug OFF
 
 Djeroku Defaults:
-    Mandrill Email -- Requires Mandrill addon
+    Mailgun Email -- Requires Mailgun addon
     dj_database_url and django-postgrespool for heroku postgres configuration
     memcachify for heroku memcache configuration
     Commented out by default - redisify for heroku redis cache configuration
@@ -19,7 +19,7 @@ What you need to set in your heroku environment (heroku config:set key=value):
     automatically by during project creation by the djeroku setup)
 
     Email:
-        Defaults to mandril, which is already set up when added to your app
+        Defaults to mailgun, which is already set up when added to your app
 
         There is also a commented version that uses your gmail address.
         For more control, you can set any of the following keys in your
@@ -62,10 +62,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-port
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-use-tls
 
-EMAIL_HOST = environ.get('EMAIL_HOST', 'smtp.mandrillapp.com')
-EMAIL_HOST_PASSWORD = environ.get('MANDRILL_APIKEY', '')
-EMAIL_HOST_USER = environ.get('MANDRILL_USERNAME', '')
-EMAIL_PORT = environ.get('EMAIL_PORT', 587)
+EMAIL_HOST = environ.get('MAILGUN_SMTP_SERVER', 'smtp.mailgun.com')
+EMAIL_HOST_PASSWORD = environ.get('MAILGUN_SMTP_PASSWORD', '')
+EMAIL_HOST_USER = environ.get('MAILGUN_SMTP_LOGIN', '')
+EMAIL_PORT = environ.get('MAILGUN_SMTP_PORT', 587)
 EMAIL_USE_TLS = True
 
 # use this to channel your emails through a gmail powered account instead
